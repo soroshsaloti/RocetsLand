@@ -16,7 +16,7 @@ public class LandingServiceTests
 
     public static readonly IEnumerable<object[]> testRequest = new[]
     {
-            new object[]{ new Coordinate(0, 0), OUT_OF_PLATFORM},
+            new object[]{ new Coordinate(0, 0), OK_FOR_LANDING},
             new object[]{ new Coordinate(5, 5), OK_FOR_LANDING},
             new object[]{ new Coordinate(16, 15), OUT_OF_PLATFORM}
 
