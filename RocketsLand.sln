@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketsLand", "src\RocketsLand\RocketsLand.csproj", "{FBA79FEC-F694-4318-83D1-17C3161D6BE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketsLandTests", "src\RocketsLandTests\RocketsLandTests.csproj", "{CEA53050-8B15-4797-AC55-64351E85D8D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBA79FEC-F694-4318-83D1-17C3161D6BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA79FEC-F694-4318-83D1-17C3161D6BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA79FEC-F694-4318-83D1-17C3161D6BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA79FEC-F694-4318-83D1-17C3161D6BE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEA53050-8B15-4797-AC55-64351E85D8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA53050-8B15-4797-AC55-64351E85D8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA53050-8B15-4797-AC55-64351E85D8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA53050-8B15-4797-AC55-64351E85D8D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1FC149AB-BDD4-47C6-8046-80B157D50F37}
+	EndGlobalSection
+EndGlobal
