@@ -13,6 +13,8 @@ public  class Rocket : Landing
     {
         Size = size;
         Level = level;
+        Coordinate = new Coordinate(Size, Size);
+        Land = new Square(this.Coordinate, Level);
     }
 
 }

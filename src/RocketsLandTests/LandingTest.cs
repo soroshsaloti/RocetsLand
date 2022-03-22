@@ -13,6 +13,11 @@ public class LandingTest
 
         landing.Size.Should().Be(100);
         landing.Level.Should().Be(1);
+        landing.Coordinate.X.Should().Be(100);
+        landing.Coordinate.Y.Should().Be(100);
+        landing.ToString().Should().Be("100,100");
+        landing.Land.Should().NotBeNull();
+        landing.Land.Name.Should().Be(landing.Coordinate.ToString());
     }
 
     [Fact]
@@ -22,6 +27,11 @@ public class LandingTest
 
         landing.Size.Should().Be(10);
         landing.Level.Should().Be(5);
+        landing.Coordinate.X.Should().Be(10);
+        landing.Coordinate.Y.Should().Be(10);
+        landing.ToString().Should().Be("10,10");
+        landing.Land.Should().NotBeNull();
+        landing.Land.Name.Should().Be(landing.Coordinate.ToString());
     }
     [Fact]
     public void WhenLandIsRocket()
@@ -30,6 +40,11 @@ public class LandingTest
 
         landing.Size.Should().Be(20);
         landing.Level.Should().Be(50);
+        landing.Coordinate.X.Should().Be(20);
+        landing.Coordinate.Y.Should().Be(20);
+        landing.ToString().Should().Be("20,20");
+        landing.Land.Should().NotBeNull();
+        landing.Land.Name.Should().Be(landing.Coordinate.ToString());
     }
 }
 

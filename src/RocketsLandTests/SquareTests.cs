@@ -16,6 +16,7 @@ public class SquareTests
         var square = new Square(coordinate, 10);
         square.Should().NotBeNull();
         square.Name.Should().Be(coordinate.ToString());
+        square.Coordinate.Should().Be(coordinate);
     }
 }
 

@@ -10,6 +10,7 @@ public class Area : Landing
 
     public Area() : base()
     {
-
+        Coordinate = new Coordinate(Size, Size);
+        Land = new Square(this.Coordinate, Level);
     }
 }

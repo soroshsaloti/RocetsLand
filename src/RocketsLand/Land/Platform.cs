@@ -9,6 +9,8 @@ public class Platform : Landing
 
     public Platform() : base()
     {
+        Coordinate = new Coordinate(Size, Size);
+        Land = new Square(this.Coordinate, Level);
     }
 }
 
