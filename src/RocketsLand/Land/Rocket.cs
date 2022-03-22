@@ -2,7 +2,11 @@
 
 using RocketsLand.InfoStruct;
 
-public  class Rocket : Landing
+public interface IRocket : ILanding
+{
+
+}
+public sealed class Rocket : Landing, IRocket
 {
     public override  int Size { get; protected set; }
 

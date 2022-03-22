@@ -1,7 +1,9 @@
 ﻿namespace RocketsLand.Land;
 using RocketsLand.InfoStruct;
 
-public class Area : Landing
+public interface IArea : ILanding {
+}
+public sealed class Area : Landing, IArea 
 {
 
     public override int Size { get; protected set; } = 100;

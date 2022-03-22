@@ -1,5 +1,5 @@
 ﻿namespace RocketsLand.InfoStruct;
-public abstract class Landing
+public abstract class Landing : ILanding
 {
     public abstract int Size { get; protected set; }
 
@@ -7,6 +7,6 @@ public abstract class Landing
 
     public Square Land { get; protected set; }
 
-    public Coordinate Coordinate { get; protected set; } 
-    
+    public Coordinate Coordinate { get; protected set; }
+
 }
