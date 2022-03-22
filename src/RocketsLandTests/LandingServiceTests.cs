@@ -22,8 +22,9 @@ public class LandingServiceTests
     [Fact]
     public void WhenHappyLand()
     {
-        _landingService._platform.Should().NotBeNull();
-        _landingService._area.Should().NotBeNull();
+        var landingService= new LandingService(_area, _platform);
+        landingService._platform.Should().NotBeNull();
+        landingService._area.Should().NotBeNull();
     }
 
     [Fact]
