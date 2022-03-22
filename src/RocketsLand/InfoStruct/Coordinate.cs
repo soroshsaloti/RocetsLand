@@ -10,6 +10,14 @@ public struct Coordinate
 
     public override string ToString() => $"{X},{Y}";
 
+    public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode();
+
+    public Coordinate Add(int n)
+    {
+        var x = this.X + n;
+        var y = this.Y + n;
+        return new Coordinate(x, y);
+    }
     public static bool operator ==(Coordinate? left, Coordinate? right)
     {
         if (left is null)

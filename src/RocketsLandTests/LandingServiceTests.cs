@@ -20,7 +20,16 @@ public class LandingServiceTests
             new object[]{ new Coordinate(5, 5), OK_FOR_LANDING},
             new object[]{ new Coordinate(16, 15), OUT_OF_PLATFORM}
 
-     };
+    };
+
+    public static readonly IEnumerable<object[]> testRequestTowRocket = new[]
+    {
+            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(7, 8), CLASH},
+            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(6, 7), CLASH},
+            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(6, 6), CLASH},
+            new object[]{ new Coordinate(5, 5), OK_FOR_LANDING,new Coordinate(5, 5), CLASH}
+    };
+
 
     public readonly IArea _area;
     public readonly IPlatform _platform;
@@ -63,13 +72,50 @@ public class LandingServiceTests
     [MemberData(nameof(LandingServiceTests.testRequest), MemberType = typeof(LandingServiceTests))]
     public void WhenRequest(Coordinate request, string expectedOutput)
     {
-        var result = _landingService.RocektRequestLand(request);
+        var result = _landingService.RocektRequestLand(new Platform(request));
 
         result.Should().NotBeNull();
         result.Should().Be(expectedOutput);
     }
 
-     
+    [Theory]
+    [MemberData(nameof(LandingServiceTests.testRequestTowRocket), MemberType = typeof(LandingServiceTests))]
+    public void WhenRequestTowRocket(Coordinate requestFirst, string expectedOutputFirst, 
+        Coordinate requestSecond, string expectedOutputSecond)
+    {
+
+        var result = _landingService.RocektRequestLand(new Platform(requestFirst));
+        result.Should().NotBeNull();
+        result.Should().Be(expectedOutputFirst);
+
+        result = _landingService.RocektRequestLand(new Platform(requestSecond));
+        result.Should().Be(expectedOutputSecond);
+    }
+
+    [Fact]
+    public void WhenRequestLastPostionSame()
+    {
+        var result = _landingService.RocektRequestLand(new Platform(new Coordinate(5, 5)));
+        result.Should().NotBeNull();
+        result.Should().Be(OK_FOR_LANDING);
+
+        result = _landingService.RocektRequestLand(new Platform(new Coordinate(5, 5)));
+        result.Should().Be(CLASH);
+
+    }
+
+    [Fact]
+    public void WhenRequestLastPostionLess()
+    {
+        var result = _landingService.RocektRequestLand(new Platform(new Coordinate(7, 7)));
+        result.Should().NotBeNull();
+        result.Should().Be(OK_FOR_LANDING);
+
+        result = _landingService.RocektRequestLand(new Platform(new Coordinate(7, 8)));
+        result.Should().Be(CLASH);
+
+    }
+
 
 
 }

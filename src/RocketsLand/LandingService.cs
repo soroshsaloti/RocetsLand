@@ -11,6 +11,7 @@ public class LandingService
 
     private readonly IArea _area;
     private readonly IPlatform _platform;
+    private IPlatform _previousPosition;
     public LandingService(IArea area, IPlatform platform)
     {
         _area = area;
@@ -28,17 +29,37 @@ public class LandingService
             throw new ArgumentException("[ERROR]: the landing platform full size must be less than the landing area size");
     }
 
-    public string RocektRequestLand(Coordinate rocketCoordinate)
+    public string RocektRequestLand(IPlatform rocket)
     {
-        if (IsCoordinateOk(rocketCoordinate))
-            return OK_FOR_LANDING;
+         
+        var retVal = string.Empty;
+        if (_previousPosition != null && IsCoordinateCrash(rocket))
+            retVal = CLASH;
+       else if (IsCoordinateOk(rocket))
+            retVal = OK_FOR_LANDING;
         else
-            return OUT_OF_PLATFORM;
+            retVal = OUT_OF_PLATFORM;
 
+        _previousPosition = new Platform(rocket.Coordinate.Add(-1));
+        return retVal;
     }
-    private bool IsCoordinateOk(Coordinate rocketCoordinate)
+    private bool IsCoodinate(Coordinate rocketCoordinate, IPlatform platform)
     {
-        return  rocketCoordinate == new Coordinate(5, 5);
+        return rocketCoordinate.X <= platform.Coordinate.X &&
+             rocketCoordinate.Y <= platform.Coordinate.Y &&
+             rocketCoordinate.X <= platform.Coordinate.X + platform.Level - 1 &&
+             rocketCoordinate.Y <= platform.Coordinate.Y + platform.Level - 1;
     }
+    private bool IsCoordinateOk(IPlatform rocket)
+    {
+        return IsCoodinate(rocket.Coordinate, _platform);
+    }
+
+    private bool IsCoordinateCrash(IPlatform rocket)
+    {
+        return IsCoodinate( _previousPosition.Coordinate, rocket);
+    }
+
+   
 
 }

@@ -20,5 +20,12 @@ public sealed class Platform : Landing, IPlatform
         Coordinate = new Coordinate(Size, Size);
         Land = new Square(this.Coordinate, Level);
     }
+    public Platform(Coordinate coordinate)
+    {
+        Size = 0;
+        Level = 10;
+        Coordinate = coordinate;
+        Land = new Square(this.Coordinate, Level);
+    }
 }
 
