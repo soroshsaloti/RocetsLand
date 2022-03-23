@@ -57,5 +57,5 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"soroshsaloti_RocketsLand" /o:"soroshsaloti" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build RocketsLand.sln --no-incremental
-          dotnet test --collect "Code Coverage"
+          dotnet test --collect "Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
