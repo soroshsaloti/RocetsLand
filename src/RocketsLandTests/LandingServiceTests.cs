@@ -10,24 +10,21 @@ using Xunit;
 
 public class LandingServiceTests
 {
-    public const string OK_FOR_LANDING = "ok for landing";
-    public const string OUT_OF_PLATFORM = "out of platform";
-    public  const string CLASH = "clash";
 
     public static readonly IEnumerable<object[]> testRequest = new[]
     {
-            new object[]{ new Coordinate(0, 0), OK_FOR_LANDING},
-            new object[]{ new Coordinate(5, 5), OK_FOR_LANDING},
-            new object[]{ new Coordinate(16, 15), OUT_OF_PLATFORM}
+            new object[]{ new Coordinate(0, 0),Platform.OK_FOR_LANDING},
+            new object[]{ new Coordinate(5, 5), Platform.OK_FOR_LANDING},
+            new object[]{ new Coordinate(16, 15), Platform.OUT_OF_PLATFORM}
 
     };
 
     public static readonly IEnumerable<object[]> testRequestTowRocket = new[]
     {
-            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(7, 8), CLASH},
-            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(6, 7), CLASH},
-            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(6, 6), CLASH},
-            new object[]{ new Coordinate(5, 5), OK_FOR_LANDING,new Coordinate(5, 5), CLASH}
+            new object[]{ new Coordinate(7, 7), Platform.OK_FOR_LANDING,new Coordinate(7, 8), Platform.CLASH},
+            new object[]{ new Coordinate(7, 7), Platform.OK_FOR_LANDING,new Coordinate(6, 7), Platform.CLASH},
+            new object[]{ new Coordinate(7, 7), Platform.OK_FOR_LANDING,new Coordinate(6, 6), Platform.CLASH},
+            new object[]{ new Coordinate(5, 5), Platform.OK_FOR_LANDING,new Coordinate(5, 5), Platform.CLASH}
     };
 
 
@@ -80,7 +77,7 @@ public class LandingServiceTests
 
     [Theory]
     [MemberData(nameof(LandingServiceTests.testRequestTowRocket), MemberType = typeof(LandingServiceTests))]
-    public void WhenRequestTowRocket(Coordinate requestFirst, string expectedOutputFirst, 
+    public void WhenRequestTowRocket(Coordinate requestFirst, string expectedOutputFirst,
         Coordinate requestSecond, string expectedOutputSecond)
     {
 
@@ -97,10 +94,10 @@ public class LandingServiceTests
     {
         var result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
         result.Should().NotBeNull();
-        result.Should().Be(OK_FOR_LANDING);
+        result.Should().Be(Platform.OK_FOR_LANDING);
 
         result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
-        result.Should().Be(CLASH);
+        result.Should().Be(Platform.CLASH);
 
     }
 
@@ -109,10 +106,10 @@ public class LandingServiceTests
     {
         var result = _landingService.RocektRequestLand(new Rocket(new Coordinate(7, 7)));
         result.Should().NotBeNull();
-        result.Should().Be(OK_FOR_LANDING);
+        result.Should().Be(Platform.OK_FOR_LANDING);
 
         result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
-        result.Should().Be(CLASH);
+        result.Should().Be(Platform.CLASH);
 
     }
 

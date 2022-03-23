@@ -85,10 +85,10 @@ public class LandingTest
 
         var result = landing.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
         result.Should().NotBeNull();
-        result.Should().Be(LandingServiceTests.OK_FOR_LANDING);
+        result.Should().Be(Platform.OK_FOR_LANDING);
 
         result = landing.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
-        result.Should().Be(LandingServiceTests.CLASH);
+        result.Should().Be(Platform.CLASH);
 
     }
 
@@ -99,10 +99,10 @@ public class LandingTest
 
         var result = landing.RocektRequestLand(new Rocket(new Coordinate(7, 7)));
         result.Should().NotBeNull();
-        result.Should().Be(LandingServiceTests.OK_FOR_LANDING);
+        result.Should().Be(Platform.OK_FOR_LANDING);
 
         result = landing.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
-        result.Should().Be(LandingServiceTests.CLASH);
+        result.Should().Be(Platform.CLASH);
 
     }
 }

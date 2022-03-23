@@ -10,9 +10,9 @@ public interface IPlatform : ILanding
 }
 public sealed class Platform : Landing, IPlatform
 {
-    private const string OK_FOR_LANDING = "ok for landing";
-    private const string OUT_OF_PLATFORM = "out of platform";
-    private const string CLASH = "clash";
+    public const string OK_FOR_LANDING = "ok for landing";
+    public const string OUT_OF_PLATFORM = "out of platform";
+    public const string CLASH = "clash";
 
     public override int Level { get; protected set; }
 
@@ -35,7 +35,7 @@ public sealed class Platform : Landing, IPlatform
     public string RocektRequestLand(IRocket rocket)
     {
         var retVal = string.Empty;
-        if (PreviousPosition.HasRocket  && IsCoordinateCrash(rocket))
+        if (PreviousPosition.HasRocket && IsCoordinateCrash(rocket))
             retVal = CLASH;
         else if (IsCoordinateOk(rocket))
             retVal = OK_FOR_LANDING;
@@ -58,9 +58,9 @@ public sealed class Platform : Landing, IPlatform
     {
         return this.Coordinate.X >= rocket.Coordinate.X &&
              this.Coordinate.Y >= rocket.Coordinate.Y &&
-            (this.PreviousPosition.HasRocket &&
+            ( this.PreviousPosition.HasRocket &&
              ( this.PreviousPosition.Coordinate.X >= rocket.FullSizeX - 1 ||
-             this.PreviousPosition.Coordinate.Y >= rocket.FullSizeY - 1 ));
+             this.PreviousPosition.Coordinate.Y >= rocket.FullSizeY - 1 ) );
     }
 }
 
