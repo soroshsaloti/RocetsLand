@@ -8,9 +8,7 @@ public struct Coordinate
 
     public Coordinate(int X, int Y) { this.X = X; this.Y = Y; }
 
-    public override string ToString() => $"{X},{Y}";
-
-    public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode();
+    public override string ToString() => $"{X},{Y}"; 
 
     public Coordinate Add(int n)
     {
