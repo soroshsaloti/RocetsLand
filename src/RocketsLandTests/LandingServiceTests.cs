@@ -10,24 +10,21 @@ using Xunit;
 
 public class LandingServiceTests
 {
-    private const string OK_FOR_LANDING = "ok for landing";
-    private const string OUT_OF_PLATFORM = "out of platform";
-    private const string CLASH = "clash";
 
     public static readonly IEnumerable<object[]> testRequest = new[]
     {
-            new object[]{ new Coordinate(0, 0), OK_FOR_LANDING},
-            new object[]{ new Coordinate(5, 5), OK_FOR_LANDING},
-            new object[]{ new Coordinate(16, 15), OUT_OF_PLATFORM}
+            new object[]{ new Coordinate(0, 0),Platform.OK_FOR_LANDING},
+            new object[]{ new Coordinate(5, 5), Platform.OK_FOR_LANDING},
+            new object[]{ new Coordinate(16, 15), Platform.OUT_OF_PLATFORM}
 
     };
 
     public static readonly IEnumerable<object[]> testRequestTowRocket = new[]
     {
-            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(7, 8), CLASH},
-            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(6, 7), CLASH},
-            new object[]{ new Coordinate(7, 7), OK_FOR_LANDING,new Coordinate(6, 6), CLASH},
-            new object[]{ new Coordinate(5, 5), OK_FOR_LANDING,new Coordinate(5, 5), CLASH}
+            new object[]{ new Coordinate(7, 7), Platform.OK_FOR_LANDING,new Coordinate(7, 8), Platform.CLASH},
+            new object[]{ new Coordinate(7, 7), Platform.OK_FOR_LANDING,new Coordinate(6, 7), Platform.CLASH},
+            new object[]{ new Coordinate(7, 7), Platform.OK_FOR_LANDING,new Coordinate(6, 6), Platform.CLASH},
+            new object[]{ new Coordinate(5, 5), Platform.OK_FOR_LANDING,new Coordinate(5, 5), Platform.CLASH}
     };
 
 
@@ -72,7 +69,7 @@ public class LandingServiceTests
     [MemberData(nameof(LandingServiceTests.testRequest), MemberType = typeof(LandingServiceTests))]
     public void WhenRequest(Coordinate request, string expectedOutput)
     {
-        var result = _landingService.RocektRequestLand(new Platform(request));
+        var result = _landingService.RocektRequestLand(new Rocket(request));
 
         result.Should().NotBeNull();
         result.Should().Be(expectedOutput);
@@ -80,39 +77,39 @@ public class LandingServiceTests
 
     [Theory]
     [MemberData(nameof(LandingServiceTests.testRequestTowRocket), MemberType = typeof(LandingServiceTests))]
-    public void WhenRequestTowRocket(Coordinate requestFirst, string expectedOutputFirst, 
+    public void WhenRequestTowRocket(Coordinate requestFirst, string expectedOutputFirst,
         Coordinate requestSecond, string expectedOutputSecond)
     {
 
-        var result = _landingService.RocektRequestLand(new Platform(requestFirst));
+        var result = _landingService.RocektRequestLand(new Rocket(requestFirst));
         result.Should().NotBeNull();
         result.Should().Be(expectedOutputFirst);
 
-        result = _landingService.RocektRequestLand(new Platform(requestSecond));
+        result = _landingService.RocektRequestLand(new Rocket(requestSecond));
         result.Should().Be(expectedOutputSecond);
     }
 
     [Fact]
     public void WhenRequestLastPostionSame()
     {
-        var result = _landingService.RocektRequestLand(new Platform(new Coordinate(5, 5)));
+        var result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
         result.Should().NotBeNull();
-        result.Should().Be(OK_FOR_LANDING);
+        result.Should().Be(Platform.OK_FOR_LANDING);
 
-        result = _landingService.RocektRequestLand(new Platform(new Coordinate(5, 5)));
-        result.Should().Be(CLASH);
+        result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
+        result.Should().Be(Platform.CLASH);
 
     }
 
     [Fact]
     public void WhenRequestLastPostionLess()
     {
-        var result = _landingService.RocektRequestLand(new Platform(new Coordinate(7, 7)));
+        var result = _landingService.RocektRequestLand(new Rocket(new Coordinate(7, 7)));
         result.Should().NotBeNull();
-        result.Should().Be(OK_FOR_LANDING);
+        result.Should().Be(Platform.OK_FOR_LANDING);
 
-        result = _landingService.RocektRequestLand(new Platform(new Coordinate(7, 8)));
-        result.Should().Be(CLASH);
+        result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
+        result.Should().Be(Platform.CLASH);
 
     }
 
