@@ -6,9 +6,7 @@ using System;
 public class LandingService
 { 
     private readonly IArea _area;
-    private readonly IPlatform _platform;
-    private IRocket _previousPosition;
-
+    private readonly IPlatform _platform;  
     public LandingService(IArea area, IPlatform platform)
     {
         _area = area;

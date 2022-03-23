@@ -11,10 +11,12 @@ public sealed class Rocket : Landing, IRocket
 {
     public int FullSizeX => Coordinate.X + Level;
     public int FullSizeY => Coordinate.Y + Level;
+    public override int Level { get; protected set; } 
 
-    public override int Level { get; protected set; }
-
-
+    public Rocket()
+    {
+        Level = 0;
+    }
     public Rocket(int x , int y ) : this(new Coordinate(x, y))
     {
     }

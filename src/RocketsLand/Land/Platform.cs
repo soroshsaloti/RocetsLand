@@ -24,8 +24,9 @@ public sealed class Platform : Landing, IPlatform
     {
     }
 
-    public Platform(Coordinate coordinate, int level=5)
+    public Platform(Coordinate coordinate, int level = 5)
     {
+        PreviousPosition = new Rocket();
         Coordinate = coordinate;
         Level = level;
         Land = new Square(this.Coordinate, Level);
@@ -34,7 +35,7 @@ public sealed class Platform : Landing, IPlatform
     public string RocektRequestLand(IRocket rocket)
     {
         var retVal = string.Empty;
-        if (PreviousPosition != null && IsCoordinateCrash(rocket))
+        if (PreviousPosition.Level == 0 && IsCoordinateCrash(rocket))
             retVal = CLASH;
         else if (IsCoordinateOk(rocket))
             retVal = OK_FOR_LANDING;
@@ -54,11 +55,11 @@ public sealed class Platform : Landing, IPlatform
     }
 
     private bool IsCoordinateCrash(IRocket rocket)
-    { 
+    {
         return this.Coordinate.X >= rocket.Coordinate.X &&
              this.Coordinate.Y >= rocket.Coordinate.Y &&
             ( this.PreviousPosition.Coordinate.X >= rocket.FullSizeX - 1 ||
-             this.PreviousPosition.Coordinate.Y >= rocket.FullSizeY - 1);
+             this.PreviousPosition.Coordinate.Y >= rocket.FullSizeY - 1 );
     }
 }
 
