@@ -4,21 +4,25 @@ using RocketsLand.InfoStruct;
 
 public interface IRocket : ILanding
 {
-
+    int FullSizeX { get; }
+    int FullSizeY { get; }
 }
 public sealed class Rocket : Landing, IRocket
 {
-    public override  int Size { get; protected set; }
+    public int FullSizeX => Coordinate.X + Level;
+    public int FullSizeY => Coordinate.Y + Level;
 
     public override int Level { get; protected set; }
 
 
-    public Rocket(int size, int level) : base()
+    public Rocket(int x , int y ) : this(new Coordinate(x, y))
     {
-        Size = size;
-        Level = level;
-        Coordinate = new Coordinate(Size, Size);
-        Land = new Square(this.Coordinate, Level);
     }
 
+    public Rocket(Coordinate coordinate)
+    {
+        Coordinate = coordinate;
+        Level = 1;
+        Land = new Square(this.Coordinate, 1);
+    }
 }
