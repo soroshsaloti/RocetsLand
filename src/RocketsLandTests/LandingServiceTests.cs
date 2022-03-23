@@ -10,9 +10,9 @@ using Xunit;
 
 public class LandingServiceTests
 {
-    private const string OK_FOR_LANDING = "ok for landing";
-    private const string OUT_OF_PLATFORM = "out of platform";
-    private const string CLASH = "clash";
+    public const string OK_FOR_LANDING = "ok for landing";
+    public const string OUT_OF_PLATFORM = "out of platform";
+    public  const string CLASH = "clash";
 
     public static readonly IEnumerable<object[]> testRequest = new[]
     {
