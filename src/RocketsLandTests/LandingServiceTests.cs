@@ -72,7 +72,7 @@ public class LandingServiceTests
     [MemberData(nameof(LandingServiceTests.testRequest), MemberType = typeof(LandingServiceTests))]
     public void WhenRequest(Coordinate request, string expectedOutput)
     {
-        var result = _landingService.RocektRequestLand(new Platform(request));
+        var result = _landingService.RocektRequestLand(new Rocket(request));
 
         result.Should().NotBeNull();
         result.Should().Be(expectedOutput);
@@ -84,22 +84,22 @@ public class LandingServiceTests
         Coordinate requestSecond, string expectedOutputSecond)
     {
 
-        var result = _landingService.RocektRequestLand(new Platform(requestFirst));
+        var result = _landingService.RocektRequestLand(new Rocket(requestFirst));
         result.Should().NotBeNull();
         result.Should().Be(expectedOutputFirst);
 
-        result = _landingService.RocektRequestLand(new Platform(requestSecond));
+        result = _landingService.RocektRequestLand(new Rocket(requestSecond));
         result.Should().Be(expectedOutputSecond);
     }
 
     [Fact]
     public void WhenRequestLastPostionSame()
     {
-        var result = _landingService.RocektRequestLand(new Platform(new Coordinate(5, 5)));
+        var result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
         result.Should().NotBeNull();
         result.Should().Be(OK_FOR_LANDING);
 
-        result = _landingService.RocektRequestLand(new Platform(new Coordinate(5, 5)));
+        result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
         result.Should().Be(CLASH);
 
     }
@@ -107,11 +107,11 @@ public class LandingServiceTests
     [Fact]
     public void WhenRequestLastPostionLess()
     {
-        var result = _landingService.RocektRequestLand(new Platform(new Coordinate(7, 7)));
+        var result = _landingService.RocektRequestLand(new Rocket(new Coordinate(7, 7)));
         result.Should().NotBeNull();
         result.Should().Be(OK_FOR_LANDING);
 
-        result = _landingService.RocektRequestLand(new Platform(new Coordinate(7, 8)));
+        result = _landingService.RocektRequestLand(new Rocket(new Coordinate(5, 5)));
         result.Should().Be(CLASH);
 
     }

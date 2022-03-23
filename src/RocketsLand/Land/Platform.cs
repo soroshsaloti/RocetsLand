@@ -3,29 +3,62 @@ using RocketsLand.InfoStruct;
 
 public interface IPlatform : ILanding
 {
-  int FullSize { get; }
+    IRocket PreviousPosition { get; }
+    int FullSizeX { get; }
+    int FullSizeY { get; }
+    string RocektRequestLand(IRocket rocket);
 }
 public sealed class Platform : Landing, IPlatform
 {
-    public override int Size { get; protected set; }
+    private const string OK_FOR_LANDING = "ok for landing";
+    private const string OUT_OF_PLATFORM = "out of platform";
+    private const string CLASH = "clash";
 
     public override int Level { get; protected set; }
 
-    public int FullSize => Size+Level;
+    public IRocket PreviousPosition { get; private set; }
+    public int FullSizeX => Coordinate.X + Level;
+    public int FullSizeY => Coordinate.Y + Level;
 
-    public Platform(int size = 10, int level = 5)
+    public Platform(int x = 10, int y = 10, int level = 5) : this(new Coordinate(x, y), level)
     {
-        Size = size;
+    }
+
+    public Platform(Coordinate coordinate, int level=5)
+    {
+        Coordinate = coordinate;
         Level = level;
-        Coordinate = new Coordinate(Size, Size);
         Land = new Square(this.Coordinate, Level);
     }
-    public Platform(Coordinate coordinate)
+
+    public string RocektRequestLand(IRocket rocket)
     {
-        Size = 0;
-        Level = 10;
-        Coordinate = coordinate;
-        Land = new Square(this.Coordinate, Level);
+        var retVal = string.Empty;
+        if (PreviousPosition != null && IsCoordinateCrash(rocket))
+            retVal = CLASH;
+        else if (IsCoordinateOk(rocket))
+            retVal = OK_FOR_LANDING;
+        else
+            retVal = OUT_OF_PLATFORM;
+
+        PreviousPosition = new Rocket(rocket.Coordinate);
+        return retVal;
+    }
+
+
+    private bool IsCoordinateOk(IRocket rocket)
+    {
+        return this.Coordinate.X >= rocket.Coordinate.X &&
+             this.Coordinate.Y >= rocket.Coordinate.Y;
+
+    }
+
+    private bool IsCoordinateCrash(IRocket rocket)
+    { 
+        return this.Coordinate.X >= rocket.Coordinate.X &&
+             this.Coordinate.Y >= rocket.Coordinate.Y &&
+            ( this.PreviousPosition.Coordinate.X >= rocket.FullSizeX - 1 ||
+             this.PreviousPosition.Coordinate.Y >= rocket.FullSizeY - 1);
     }
 }
 
