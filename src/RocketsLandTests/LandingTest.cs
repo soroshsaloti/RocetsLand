@@ -16,6 +16,16 @@ public class LandingTest
         landing.Land.Should().NotBeNull();
         landing.Land.Name.Should().Be(landing.Coordinate.ToString());
     }
+    [Fact]
+    public void WhenLandArea()
+    {
+        IArea landing = new Area();
+        landing.Level.Should().Be(1);
+        landing.Coordinate.X.Should().Be(100);
+        landing.Coordinate.Y.Should().Be(100);
+        landing.Land.Should().NotBeNull();
+        landing.Land.Name.Should().Be(landing.Coordinate.ToString());
+    }
 
     [Fact]
     public void WhenLandIsPlatform()
